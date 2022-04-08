@@ -1,5 +1,6 @@
 import React                          from "react"
-import ReactDOM                       from "react-dom"
+import {StrictMode}                   from "react"
+import {createRoot}                   from "react-dom/client";
 import {Provider}                     from "react-redux"
 import {createStore, applyMiddleware} from "redux"
 import createSagaMiddleware           from "redux-saga"
@@ -22,11 +23,14 @@ const socket = setupSocket(store.dispatch)
 
 sagaMiddleware.run(handleNewMessage, {socket})
 
-ReactDOM.render
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement);
+
+root.render
 (
-	<Provider store={store}>
+   <Provider store={store}>
 		<App />
 	</Provider>,
-	document.getElementById("root")
-)
+ );
+
 registerServiceWorker()
