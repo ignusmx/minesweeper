@@ -3,7 +3,7 @@ import PropTypes    from "prop-types"
 import Message      from "./message"
 import {addMessage} from "./../control/actions"
 
-const Board = (messages : any)=>
+const Board = ({messages} : any)=>
 {
 	console.log(messages);
 

@@ -1,5 +1,6 @@
 import React                          from "react"
 import {StrictMode}                   from "react"
+// @ts-ignore
 import {createRoot}                   from "react-dom/client";
 import {Provider}                     from "react-redux"
 import {createStore, applyMiddleware} from "redux"
