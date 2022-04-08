@@ -25,7 +25,7 @@ const socket = setupSocket(store.dispatch)
 sagaMiddleware.run(handleNewMessage, {socket})
 
 const rootElement = document.getElementById('root');
-const root = createRoot(rootElement);
+const root        = createRoot(rootElement);
 
 root.render
 (

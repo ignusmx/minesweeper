@@ -1,10 +1,13 @@
 import React                         from "react"
 import * as types                    from "./actionTypes"
 import {messageReceived, addMessage} from "./actions"
+import Fab from '@mui/material/Fab'
+import Grid from '@mui/material/Grid'
 
 const setupSocket = (dispatch : any)=>
 {
 	const socket = new WebSocket("wss://hometask.eg1236.com/game1/")
+	const difficultyColors = ["#5bf23d","#f2ef3d","#f2913d","#f2493d"]
 
 	socket.onopen = () =>
 	{
@@ -12,24 +15,28 @@ const setupSocket = (dispatch : any)=>
 		(
 			messageReceived
 			(
-				<div>
-					<span>
-						Difficulty Level
-					</span>
+				<Grid
+					container
+					spacing={0}
+					direction="column"
+					alignItems="center"
+					justifyContent="center"
+					style={{ minHeight: '100vh' }}
+					>
+					<div className="css-3d-text">MINESWEEPER</div>
+					<h1>CHOOSE A DIFFICULTY LEVEL</h1>
 					<div>
 						{
 							[1, 2, 3, 4].map
 							(
 								(level)=>
-									<button key={"lb" + level} style={{width : 100,height : 100}} onClick={()=>socket.send("new " + level)}>
-										<h1>
+									<Fab size="large" color="primary" key={"lb" + level} style={{backgroundColor : difficultyColors[level-1], margin:5}} onClick={()=>socket.send("new " + level)}>
 											{level}
-										</h1>
-									</button>
+									</Fab>
 							)
 						}
 					</div>
-				</div>
+				</Grid>
 			)
 		)
 	}

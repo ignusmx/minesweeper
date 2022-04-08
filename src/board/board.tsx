@@ -5,8 +5,6 @@ import {addMessage} from "./../control/actions"
 
 const Board = ({messages} : any)=>
 {
-	console.log(messages);
-
 	return <section id="display">
 		<Message{...messages[messages.length - 1]}/>
 	</section>
@@ -21,7 +19,8 @@ Board.propTypes=
 			id       : PropTypes.number.isRequired,
 			message  : PropTypes.any,
 		}).isRequired
-	).isRequired
+	).isRequired,
+	dispatch : PropTypes.func.isRequired
 }
 
 export default Board
