@@ -17,10 +17,17 @@ const setupSocket = (dispatch : any)=>
 						Difficulty Level
 					</span>
 					<div>
-						<button style={{width : 100,height : 100}} onClick={()=>socket.send("new 1")}><h1>1</h1></button>
-						<button style={{width : 100,height : 100}} onClick={()=>socket.send("new 2")}><h1>2</h1></button>
-						<button style={{width : 100,height : 100}} onClick={()=>socket.send("new 3")}><h1>3</h1></button>
-						<button style={{width : 100,height : 100}} onClick={()=>socket.send("new 4")}><h1>4</h1></button>
+						{
+							[1, 2, 3, 4].map
+							(
+								(level)=>
+									<button key={"lb" + level} style={{width : 100,height : 100}} onClick={()=>socket.send("new " + level)}>
+										<h1>
+											{level}
+										</h1>
+									</button>
+							)
+						}
 					</div>
 				</div>
 			)
@@ -39,25 +46,14 @@ const setupSocket = (dispatch : any)=>
 		{
 			if(event.data.indexOf("map:") == 0)
 			{
+				let gameOver = event.data.indexOf("*") >= 0;
+
 				let rows = event.data.split("\n");
 
 				rows.shift();
 
 				let map                 = [];
-				let gameOver            = false;
 				let atLeastOneUntouched = false;
-
-				for(let i = 0; i < rows.length; i++)
-				{
-					for(let j = 0; j < rows[i].length; j++)
-					{
-						if(rows[i].charAt(j) == "*")
-						{
-							gameOver = true;
-							break;
-						}
-					}
-				}
 
 				for(let i = 0; i < rows.length; i++)
 				{
