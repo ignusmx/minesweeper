@@ -8,6 +8,7 @@ const setupSocket = (dispatch : any)=>
 {
 	const socket = new WebSocket("wss://hometask.eg1236.com/game1/")
 	const difficultyColors = ["#5bf23d","#f2ef3d","#f2913d","#f2493d"]
+	const numberColors = ["#000000","#0000FF", "#448a0f", "#FF0000"];
 
 	socket.onopen = () =>
 	{
@@ -79,14 +80,14 @@ const setupSocket = (dispatch : any)=>
 								{
 									rows[i].charAt(j) == "□"
 											?
-										<button style={{width : 25, height : 25}} onClick={()=>socket.send("open "+ j + " " + i)}
+										<button className="cellButton" onClick={()=>socket.send("open "+ j + " " + i)}
 										  disabled={gameOver}
 										>
 										</button>
 											:
-										<div style={{width : 25, height : 25}}>
-											{rows[i].charAt(j)}
-										</div>
+										<button className="pickedCell" style={{color:numberColors[rows[i].charAt(j)]}}>
+											<strong>{rows[i].charAt(j) == 0 ? "" : rows[i].charAt(j)}</strong>
+										</button>
 								}
 							</td>
 						);
@@ -99,14 +100,21 @@ const setupSocket = (dispatch : any)=>
 				(
 					messageReceived
 					(
-						<div>
-							<table>
+						<Grid
+							container
+							spacing={0}
+							direction="column"
+							alignItems="center"
+							justifyContent="center"
+							style={{ minHeight: '100vh' }}
+							>
+							<table className="mineTable">
 								<tbody>
 									{map}
 								</tbody>
 							</table>
 							{gameOver && <div>You lose</div>}
-						</div>
+						</Grid>
 					)
 				)
 			}
