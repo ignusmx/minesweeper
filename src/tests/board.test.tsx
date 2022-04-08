@@ -9,7 +9,7 @@ const setup = ()=>
 
 	Enzyme.configure({adapter : new Adapter()})
 
-	const enzymeWrapper = mount(<MessagesList {...props} />)
+	const enzymeWrapper = mount(<Board {...props} />)
 
 	return {props, enzymeWrapper}
 }

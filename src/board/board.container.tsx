@@ -1,4 +1,4 @@
 import {connect}      from "react-redux"
 import BoardComponent from "./board"
 
-export const Board = connect(state => ({messages: state.messages}), {})(BoardComponent)
+export const Board = connect((state : any) => ({messages: state.messages}), {})(BoardComponent)
