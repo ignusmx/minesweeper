@@ -1,8 +1,9 @@
-import React     from "react"
-import PropTypes from "prop-types"
-import Message   from "./message"
-import Fab       from "@mui/material/Fab"
-import Grid      from "@mui/material/Grid"
+import React           from "react"
+import PropTypes       from "prop-types"
+import Message         from "./message"
+import Fab             from "@mui/material/Fab"
+import Grid            from "@mui/material/Grid"
+import CoronavirusIcon from '@mui/icons-material/Coronavirus';
 
 const Board = ({messages} : any)=>
 {
@@ -79,7 +80,7 @@ const Board = ({messages} : any)=>
 										</button>
 											:
 										<button className="pickedCell" style={{color:numberColors[rows[i].charAt(j)]}}>
-											<strong>{rows[i].charAt(j) == 0 ? "" : rows[i].charAt(j)}</strong>
+											<strong>{rows[i].charAt(j) == 0 ? "" : (rows[i].charAt(j) == "*" ? <CoronavirusIcon /> : rows[i].charAt(j))}</strong>
 										</button>
 								}
 							</td>
@@ -159,7 +160,7 @@ const Board = ({messages} : any)=>
 										</button>
 											:
 										<button className="pickedCell" style={{color:numberColors[rows[i].charAt(j)]}}>
-											<strong>{rows[i].charAt(j) == 0 ? "" : rows[i].charAt(j)}</strong>
+											<strong>{rows[i].charAt(j) == 0 ? "" : (rows[i].charAt(j) == "*" ? <CoronavirusIcon /> : rows[i].charAt(j))}</strong>
 										</button>
 								}
 							</td>

@@ -96,4 +96,6 @@
   border-color: #828388;
   text-align: center;
   pointer-events: none;
+  padding : 0px;
+  margin  : 0px;
 }
