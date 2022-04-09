@@ -82,27 +82,47 @@ const Board = ({messages} : any)=>
 			for(let i = 0; i < rows.length; i++)
 			{
 				let row = [];
+				let buttonClass
+				let buttonClick
+				let buttonSymbol
+				let buttonStyle
 
 				for(let j = 0; j < rows[i].length; j++)
 				{
+					if(rows[i].charAt(j) == "□")
+					{
+						buttonClass  = "cellButton"
+						buttonClick  = () => lastMessage.interaction.send("open "+ j + " " + i)
+					}
+					else
+					{
+						buttonClass  = "bold pickedCell"
+						buttonClick  = () => false
+					}
+
+					switch(rows[i].charAt(j))
+					{
+						case "□": case "0":
+							buttonSymbol = ""
+							buttonStyle  = {}
+						break
+						case "*":
+							buttonSymbol = <CoronavirusIcon />
+							buttonStyle  = {}
+						break 
+						default:
+							buttonSymbol = rows[i].charAt(j)
+							buttonStyle  = {color : numberColors[rows[i].charAt(j)]}
+						break
+					}
+
 					row.push
 					(
 						<td key={"c" + i + "_" + j}>
 							{
-								rows[i].charAt(j) == "□"
-										?
-									<button className="cellButton" onClick={()=>lastMessage.interaction.send("open "+ j + " " + i)}
-									  disabled={gameOver}
-									>
-									</button>
-										:
-									<button className="bold pickedCell" style={{color:numberColors[rows[i].charAt(j)]}}>
-										{
-											rows[i].charAt(j) == 0
-												? ""
-													: (rows[i].charAt(j) == "*" ? <CoronavirusIcon /> : rows[i].charAt(j))
-										}
-									</button>
+								<button className={buttonClass} onClick={buttonClick} disabled={gameOver} style={buttonStyle}>
+									{buttonSymbol}
+								</button>
 							}
 						</td>
 					);
@@ -121,7 +141,7 @@ const Board = ({messages} : any)=>
 						</table>
 						{
 							gameOver &&
-							<div style={{position : "absolute", background : "rgba(0, 0, 0, 0.5)", textAlign : "center", width :"100%", height : "100%"}}>
+							<div style={{position : "fixed", zIndex : 1, background : "rgba(0, 0, 0, 0.5)", textAlign : "center", width :"100%", height : "100%", top : 0}}>
 								<div style={{position : "relative", top: "calc(50vh - 106px)", color : "#FFFFFF"}}>
 									<div>
 										{endText}
