@@ -60,7 +60,6 @@ const Board = ({messages} : any)=>
 				rows.shift();
 
 				let map                 = [];
-				let atLeastOneUntouched = false;
 
 				for(let i = 0; i < rows.length; i++)
 				{
@@ -68,11 +67,6 @@ const Board = ({messages} : any)=>
 
 					for(let j = 0; j < rows[i].length; j++)
 					{
-						if(!atLeastOneUntouched && rows[i].charAt(j) == "□")
-						{
-							atLeastOneUntouched = true;
-						}
-
 						row.push
 						(
 							<td key={"c" + i + "_" + j}>
@@ -105,26 +99,28 @@ const Board = ({messages} : any)=>
 							</table>
 							{
 								gameOver &&
-								<div>
-									<div>
-										You lose
-									</div>
-									<h1>
-										START OVER
-									</h1>
-									<div>
-										{
-											[1, 2, 3, 4].map
-											(
-												(level)=>
-													<Fab size="large" color="primary" key={"lb" + level}
-													  style={{backgroundColor : difficultyColors[level-1], margin:5}}
-													  onClick={() => lastMessage.interaction.send("new " + level)}
-													>
-															{level}
-													</Fab>
-											)
-										}
+								<div style={{position : "absolute", background : "rgba(0, 0, 0, 0.5)", textAlign : "center", width :"100%", height : "100%"}}>
+									<div style={{position : "relative", top: "calc(50vh - 79px)"}}>
+										<div style={{color : "#FFFFFF"}}>
+											You lose
+										</div>
+										<h1 style={{color : "#FFFFFF"}}>
+											START OVER
+										</h1>
+										<div>
+											{
+												[1, 2, 3, 4].map
+												(
+													(level)=>
+														<Fab size="large" color="primary" key={"lb" + level}
+														  style={{backgroundColor : difficultyColors[level-1], margin:5}}
+														  onClick={() => lastMessage.interaction.send("new " + level)}
+														>
+																{level}
+														</Fab>
+												)
+											}
+										</div>
 									</div>
 								</div>
 							}
