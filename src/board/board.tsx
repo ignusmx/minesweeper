@@ -55,7 +55,8 @@ const Board = ({messages} : any)=>
 
 			if(lastMessage.content.indexOf("map:") == 0)
 			{
-				let gameOver = mappedMessage.content == "open: You lose";
+				let gameOver = mappedMessage.content != "open: OK";
+				let endText  = mappedMessage.content.split("open: ")[1];
 				let rows     = lastMessage.content.split("\n");
 
 				rows.shift();
@@ -103,7 +104,7 @@ const Board = ({messages} : any)=>
 								<div style={{position : "absolute", background : "rgba(0, 0, 0, 0.5)", textAlign : "center", width :"100%", height : "100%"}}>
 									<div style={{position : "relative", top: "calc(50vh - 79px)"}}>
 										<div style={{color : "#FFFFFF"}}>
-											You lose
+											{endText}
 										</div>
 										<h1 style={{color : "#FFFFFF"}}>
 											START OVER
