@@ -1,101 +1,122 @@
-.App {
-  text-align: center;
+.App
+{
+	text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App-logo
+{
+	height         : 40vmin;
+	pointer-events :   none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@media (prefers-reduced-motion : no-preference)
+{
+	.App-logo
+	{
+		animation : App-logo-spin infinite 20s linear;
+	}
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.App-header
+{
+	background-color :            #282C34;
+	min-height       :              100vh;
+	display          :               flex;
+	flex-direction   :             column;
+	align-items      :             center;
+	justify-content  :             center;
+	font-size        : calc(10px + 2vmin);
+	color            :              white;
 }
 
-.App-link {
-  color: #61dafb;
+.App-link
+{
+	color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@keyframes App-logo-spin
+{
+	from
+	{
+		transform : rotate(0deg);
+	}
+	to
+{
+		transform : rotate(360deg);
+	}
 }
 
-.css-3d-text {
-  font-size: 70px;
-  color: #ffc107;
-  font-family: Impact, Charcoal, sans-serif;
-  text-shadow: 0px 0px 0 rgb(250,188,2),
-               1px 1px 0 rgb(245,183,0),
-               2px 2px 0 rgb(240,178,0),
-               3px 3px 0 rgb(235,173,0),
-               4px 4px 0 rgb(230,168,0),
-               5px 5px 0 rgb(225,163,0),
-               6px 6px 0 rgb(220,158,0),
-               7px 7px 0 rgb(215,153,0),
-               8px 8px 0 rgb(210,148,0),
-               9px 9px 0 rgb(205,143,0),
-               10px 10px  0 rgb(200,138,0),
-               11px 11px 10px rgba(0,0,0,0.6),
-               11px 11px 1px rgba(0,0,0,0.5),
-               0px 0px 10px rgba(0,0,0,.2);
+.css-3d-text
+{
+	font-size   :                         70px;
+	color       :                      #FFC107;
+	font-family : Impact, Charcoal, sans-serif;
+	text-shadow:
+		 0px  0px  0px  rgb(250, 188, 2),
+		 1px  1px  0px  rgb(245, 183, 0),
+		 2px  2px  0px  rgb(240, 178, 0),
+		 3px  3px  0px  rgb(235, 173, 0),
+		 4px  4px  0px  rgb(230, 168, 0),
+		 5px  5px  0px  rgb(225, 163, 0),
+		 6px  6px  0px  rgb(220, 158, 0),
+		 7px  7px  0px  rgb(215, 153, 0),
+		 8px  8px  0px  rgb(210, 148, 0),
+		 9px  9px  0px  rgb(205, 143, 0),
+		10px 10px  0px  rgb(200, 138, 0),
+		11px 11px 10px rgba(  0,   0, 0, 0.6),
+		11px 11px  1px rgba(  0,   0, 0, 0.5),
+		 0px  0px 10px rgba(  0,   0, 0,  .2);
 }
 
-.mineTable{
-  border-spacing: 0;
-  border:0;
-  border-collapse: collapse;
+.mineTable
+{
+	border-spacing  :        0;
+	border          :        0;
+	border-collapse : collapse;
 }
 
-.mineTable th, .mineTable td{
-  padding: 0px;
+.mineTable th, .mineTable td
+{
+	padding: 0px;
 }
 
-.cellButton {
-  height: 25px;
-  width: 25px;
-  display: block;
-  background-color: #C0C0C0;
-  border: 1.5px solid;
-  border-top-color: #ffffff;
-  border-right-color: #7B7B7B;
-  border-bottom-color: #7B7B7B;
-  border-left-color: #ffffff;
-  text-align: center;
-  cursor:pointer;
-  padding:0;
-  margin:0;
+.cellButton
+{
+	height              :        25px;
+	width               :        25px;
+	display             :       block;
+	background-color    :     #C0C0C0;
+	border              : 1.5px solid;
+	border-top-color    :     #FFFFFF;
+	border-right-color  :     #7B7B7B;
+	border-bottom-color :     #7B7B7B;
+	border-left-color   :     #ffffff;
+	text-align          :      center;
+	cursor              :     pointer;
+	padding             :           0;
+	margin              :           0;
 }
 
-.cellButton:hover{
-  background-color: #e6e4e4;
+.cellButton:hover
+{
+	background-color: #e6e4e4;
 }
 
-.pickedCell{
-  display: block;
-  width: 25px;
-  height: 25px;
-  background-color: #C0C0C0;
-  border: 1.5px solid;
-  border-color: #828388;
-  text-align: center;
-  pointer-events: none;
-  padding : 0px;
-  margin  : 0px;
+.bold
+{
+	font-weight : 900;
+}
+
+.pickedCell
+{
+	display          :       block;
+	width            :        25px;
+	height           :        25px;
+	background-color :     #C0C0C0;
+	border           : 1.5px solid;
+	border-color     :     #828388;
+	text-align       :      center;
+	pointer-events   :        none;
+	padding          :         0px;
+	margin	         :         0px;
 }

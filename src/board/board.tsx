@@ -20,168 +20,120 @@ const Board = ({messages} : any)=>
 	{
 		console.log(messages);
 
-		const lastMessage = messages[lastOne].message
+		const lastMessage     = messages[lastOne].message
+		const difficultySelect=
+		<div>
+			<h1>
+				CHOOSE A DIFFICULTY LEVEL
+			</h1>
+			<div>
+				{
+					[1, 2, 3, 4].map
+					(
+						(level)=>
+							<Fab size="large" color="primary" key={"lb" + level}
+							  style={{backgroundColor : difficultyColors[level-1], margin:5}}
+							  onClick={() => lastMessage.interaction.send("new " + level)}
+							>
+									{level}
+							</Fab>
+					)
+				}
+			</div>
+		</div>
 
 		if(lastMessage.content == "start")
 		{
 			return <div>
-					<Grid container spacing={0} direction="column" alignItems="center" justifyContent="center" style={{minHeight : "100vh"}}>
+					<Grid spacing={0} direction="column" alignItems="center" justifyContent="center" style={{minHeight : "100vh"}}
+					  container
+					>
 						<div className="css-3d-text">
 							MINESWEEPER
 						</div>
-						<h1>
-							CHOOSE A DIFFICULTY LEVEL
-						</h1>
-						<div>
-							{
-								[1, 2, 3, 4].map
-								(
-									(level)=>
-										<Fab size="large" color="primary" key={"lb" + level}
-										  style={{backgroundColor : difficultyColors[level-1], margin:5}}
-										  onClick={() => lastMessage.interaction.send("new " + level)}
-										>
-												{level}
-										</Fab>
-								)
-							}
-						</div>
+						{difficultySelect}
 					</Grid>
 				</div>
 		}
 		else
 		{
 			const mappedMessage = messages[mapped].message;
+			let   rows;
+			let   gameOver;
+			let   endText;
 
 			if(lastMessage.content.indexOf("map:") == 0)
 			{
-				let gameOver = mappedMessage.content != "open: OK";
-				let endText  = mappedMessage.content.split("open: ")[1];
-				let rows     = lastMessage.content.split("\n");
-
-				rows.shift();
-
-				let map                 = [];
-
-				for(let i = 0; i < rows.length; i++)
-				{
-					let row = [];
-
-					for(let j = 0; j < rows[i].length; j++)
-					{
-						row.push
-						(
-							<td key={"c" + i + "_" + j}>
-								{
-									rows[i].charAt(j) == "□"
-											?
-										<button className="cellButton" onClick={()=>lastMessage.interaction.send("open "+ j + " " + i)}
-										  disabled={gameOver}
-										>
-										</button>
-											:
-										<button className="pickedCell" style={{color:numberColors[rows[i].charAt(j)]}}>
-											<strong>{rows[i].charAt(j) == 0 ? "" : (rows[i].charAt(j) == "*" ? <CoronavirusIcon /> : rows[i].charAt(j))}</strong>
-										</button>
-								}
-							</td>
-						);
-					}
-
-					map.push(<tr key={"r" + i}>{row}</tr>);
-				}
-
-				return <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center"
-						  style={{ minHeight: '100vh' }}
-						>
-							<table className="mineTable">
-								<tbody>
-									{map}
-								</tbody>
-							</table>
-							{
-								gameOver &&
-								<div style={{position : "absolute", background : "rgba(0, 0, 0, 0.5)", textAlign : "center", width :"100%", height : "100%"}}>
-									<div style={{position : "relative", top: "calc(50vh - 79px)"}}>
-										<div style={{color : "#FFFFFF"}}>
-											{endText}
-										</div>
-										<h1 style={{color : "#FFFFFF"}}>
-											START OVER
-										</h1>
-										<div>
-											{
-												[1, 2, 3, 4].map
-												(
-													(level)=>
-														<Fab size="large" color="primary" key={"lb" + level}
-														  style={{backgroundColor : difficultyColors[level-1], margin:5}}
-														  onClick={() => lastMessage.interaction.send("new " + level)}
-														>
-																{level}
-														</Fab>
-												)
-											}
-										</div>
-									</div>
-								</div>
-							}
-						</Grid>
+				gameOver = mappedMessage.content != "open: OK" && mappedMessage.content != "new: OK";
+				endText  = mappedMessage.content.split("open: ")[1];
+				rows     = lastMessage.content.split("\n");
 			}
 			else
 			{
-				let gameOver = mappedMessage.content.indexOf("*") >= 0;
-				let rows     = mappedMessage.content.split("\n");
+				gameOver = false;
+				endText  = "";
+				rows     = mappedMessage.content.split("\n");
+			}
 
-				rows.shift();
+			rows.shift();
 
-				let map                 = [];
-				let atLeastOneUntouched = false;
+			let map = [];
 
-				for(let i = 0; i < rows.length; i++)
+			for(let i = 0; i < rows.length; i++)
+			{
+				let row = [];
+
+				for(let j = 0; j < rows[i].length; j++)
 				{
-					let row = [];
-
-					for(let j = 0; j < rows[i].length; j++)
-					{
-						if(!atLeastOneUntouched && rows[i].charAt(j) == "□")
-						{
-							atLeastOneUntouched = true;
-						}
-
-						row.push
-						(
-							<td key={"c" + i + "_" + j}>
-								{
-									rows[i].charAt(j) == "□"
-											?
-										<button className="cellButton" onClick={()=>mappedMessage.interaction.send("open "+ j + " " + i)}
-										  disabled={gameOver}
-										>
-										</button>
-											:
-										<button className="pickedCell" style={{color:numberColors[rows[i].charAt(j)]}}>
-											<strong>{rows[i].charAt(j) == 0 ? "" : (rows[i].charAt(j) == "*" ? <CoronavirusIcon /> : rows[i].charAt(j))}</strong>
-										</button>
-								}
-							</td>
-						);
-					}
-
-					map.push(<tr key={"r" + i}>{row}</tr>);
+					row.push
+					(
+						<td key={"c" + i + "_" + j}>
+							{
+								rows[i].charAt(j) == "□"
+										?
+									<button className="cellButton" onClick={()=>lastMessage.interaction.send("open "+ j + " " + i)}
+									  disabled={gameOver}
+									>
+									</button>
+										:
+									<button className="bold pickedCell" style={{color:numberColors[rows[i].charAt(j)]}}>
+										{
+											rows[i].charAt(j) == 0
+												? ""
+													: (rows[i].charAt(j) == "*" ? <CoronavirusIcon /> : rows[i].charAt(j))
+										}
+									</button>
+							}
+						</td>
+					);
 				}
 
-				return <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center"
-						  style={{ minHeight: '100vh' }}
-						>
-							<table className="mineTable">
-								<tbody>
-									{map}
-								</tbody>
-							</table>
-							{gameOver && <div>You lose</div>}
-						</Grid>
+				map.push(<tr key={"r" + i}>{row}</tr>);
 			}
+
+			return <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center"
+					  style={{ minHeight: '100vh' }}
+					>
+						<table className="mineTable">
+							<tbody>
+								{map}
+							</tbody>
+						</table>
+						{
+							gameOver &&
+							<div style={{position : "absolute", background : "rgba(0, 0, 0, 0.5)", textAlign : "center", width :"100%", height : "100%"}}>
+								<div style={{position : "relative", top: "calc(50vh - 106px)", color : "#FFFFFF"}}>
+									<div>
+										{endText}
+									</div>
+									<h1>
+										START OVER?
+									</h1>
+									{difficultySelect}
+								</div>
+							</div>
+						}
+					</Grid>
 		}
 	}
 }
