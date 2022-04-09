@@ -16,112 +16,34 @@ const setupSocket = (dispatch : any)=>
 		(
 			messageReceived
 			(
-				<Grid
-					container
-					spacing={0}
-					direction="column"
-					alignItems="center"
-					justifyContent="center"
-					style={{ minHeight: '100vh' }}
-					>
-					<div className="css-3d-text">MINESWEEPER</div>
-					<h1>CHOOSE A DIFFICULTY LEVEL</h1>
-					<div>
-						{
-							[1, 2, 3, 4].map
-							(
-								(level)=>
-									<Fab size="large" color="primary" key={"lb" + level} style={{backgroundColor : difficultyColors[level-1], margin:5}} onClick={()=>socket.send("new " + level)}>
-											{level}
-									</Fab>
-							)
-						}
-					</div>
-				</Grid>
+				{
+					content     : "start",
+					interaction : socket
+				}
 			)
 		)
 	}
 
 	socket.onmessage = (event) =>
 	{
-		console.log(event);
+		dispatch
+		(
+			messageReceived
+			(
+				{
+					content     : event.data,
+					interaction : socket
+				}
+			)
+		)
 
 		if(event.data == "new: OK" || event.data.indexOf("open") == 0)
 		{
 			socket.send("map");
 		}
-		else
-		{
-			if(event.data.indexOf("map:") == 0)
-			{
-				let gameOver = event.data.indexOf("*") >= 0;
+	}
 
-				let rows = event.data.split("\n");
-
-				rows.shift();
-
-				let map                 = [];
-				let atLeastOneUntouched = false;
-
-				for(let i = 0; i < rows.length; i++)
-				{
-					let row = [];
-
-					for(let j = 0; j < rows[i].length; j++)
-					{
-						if(!atLeastOneUntouched && rows[i].charAt(j) == "□")
-						{
-							atLeastOneUntouched = true;
-						}
-
-						row.push
-						(
-							<td key={"c" + i + "_" + j}>
-								{
-									rows[i].charAt(j) == "□"
-											?
-										<button className="cellButton" onClick={()=>socket.send("open "+ j + " " + i)}
-										  disabled={gameOver}
-										>
-										</button>
-											:
-										<button className="pickedCell" style={{color:numberColors[rows[i].charAt(j)]}}>
-											<strong>{rows[i].charAt(j) == 0 ? "" : rows[i].charAt(j)}</strong>
-										</button>
-								}
-							</td>
-						);
-					}
-
-					map.push(<tr key={"r" + i}>{row}</tr>);
-				}
-
-				dispatch
-				(
-					messageReceived
-					(
-						<Grid
-							container
-							spacing={0}
-							direction="column"
-							alignItems="center"
-							justifyContent="center"
-							style={{ minHeight: '100vh' }}
-							>
-							<table className="mineTable">
-								<tbody>
-									{map}
-								</tbody>
-							</table>
-							{gameOver && <div>You lose</div>}
-						</Grid>
-					)
-				)
-			}
-		}
-	  }
-
-	  return socket
+	return socket
 }
 
 export default setupSocket
