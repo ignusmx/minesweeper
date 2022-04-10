@@ -3,14 +3,14 @@ import PropTypes       from "prop-types"
 import Message         from "./message"
 import Fab             from "@mui/material/Fab"
 import Grid            from "@mui/material/Grid"
-import CoronavirusIcon from '@mui/icons-material/Coronavirus';
+import CoronavirusIcon from "@mui/icons-material/Coronavirus"
 
 const Board = ({messages} : any)=>
 {
-	const lastOne          = messages.length -1;
-	const mapped           = messages.length -2;
-	const difficultyColors = ["#5bf23d","#f2ef3d","#f2913d","#f2493d"]
-	const numberColors     = ["#000000","#0000FF", "#448a0f", "#FF0000"];
+	const lastOne          = messages.length -1
+	const mapped           = messages.length -2
+	const difficultyColors = ["#5BF23d","#F2EF3D", "#F2913D", "#F2493D"]
+	const numberColors     = ["#000000","#0000FF", "#448a0f", "#FF0000"]
 
 	if(lastOne < 0)
 	{
