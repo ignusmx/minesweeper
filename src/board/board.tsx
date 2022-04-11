@@ -26,7 +26,7 @@ const Board = ({messages} : any)=>
 			<h1>
 				CHOOSE A DIFFICULTY LEVEL
 			</h1>
-			<div>
+			<div style={{textAlign : "center"}}>
 				{
 					[1, 2, 3, 4].map
 					(
